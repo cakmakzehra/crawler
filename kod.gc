@@ -1,0 +1,23 @@
+function sendEmails() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheets()[0];
+  sheet.deleteRow(1);
+  sheet.sort(6, false);
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  data = "";
+  for (var i = 0; i < values.length; i++) {
+    var row = "";
+    for (var j = 0; j < values[i].length; j++) {
+      if (values[i][j]) {
+        row = row + values[i][j];
+      }
+      row = row + ",";
+    }
+    data = data + (i+1) + " - " + row + "\n";
+  }
+  var message = data;
+  var emailAddress = "cakmakzehraa@gmail.com";
+  var subject = 'Mission Completed!';
+  MailApp.sendEmail(emailAddress, subject, message);
+}
